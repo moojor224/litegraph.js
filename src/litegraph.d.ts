@@ -679,7 +679,7 @@ export declare class LGraphNode {
      * @param force_update if set to true it will force the connected node of this slot to output data into this link
      * @return data or if it is not connected returns undefined
      */
-    getInputData<T = any>(slot: number, force_update?: boolean): T;
+    getInputData<T = any>(slot: number, force_update?: boolean): T | undefined;
     /**
      * Retrieves the input data type (in case this supports multiple input types)
      * @param slot
