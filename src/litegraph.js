@@ -13740,7 +13740,7 @@ LGraphNode.prototype.executeAction = function(action)
         function on_mouse_wheel(e) {
             var pos = parseInt(root.style.top);
             root.style.top =
-                (pos + e.deltaY * options.scroll_speed).toFixed() + "px";
+                (pos - e.deltaY * options.scroll_speed).toFixed() + "px";
             e.preventDefault();
             return true;
         }
