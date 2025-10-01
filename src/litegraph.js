@@ -373,57 +373,36 @@
          * @param {String} return_type [optional] string with the return type, otherwise it will be generic
          * @param {Object} properties [optional] properties to be configurable
          */
-        wrapFunctionAsNode: function(
-            name,
-            func,
-            param_types,
-            return_type,
-            properties
-        ) {
-            var params = Array(func.length);
-            var code = "";
-            if(param_types !== null) //null means no inputs
-            {
-                var names = LiteGraph.getParameterNames(func);
-                for (var i = 0; i < names.length; ++i) {
-                    var type = 0;
-                    if(param_types)
-                    {
-                        //type = param_types[i] != null ? "'" + param_types[i] + "'" : "0";
-                        if( param_types[i] != null && param_types[i].constructor === String )
-                            type = "'" + param_types[i] + "'" ;
-                        else if( param_types[i] != null )
-                            type = param_types[i];
-                    } 
-                    code +=
-                        "this.addInput('" +
-                        names[i] +
-                        "'," +
-                        type +
-                        ");\n";
+        wrapFunctionAsNode: function (name, func, param_types, return_type, properties) {
+            const params = new Array(func.length);
+            return class extends LGraphNode {
+                static title = name;
+                title = name;
+                constructor() {
+                    super();
+                    if (Array.isArray(param_types)) {
+                        const names = LiteGraph.getParameterNames(func);
+                        for (let i = 0; i < names.length; ++i) {
+                            let type = 0;
+                            if (param_types[i] != null) type = param_types[i];
+                            this.addInput(names[i], type);
                         }
                     }
-            if(return_type !== null) //null means no output
-            code +=
-                "this.addOutput('out'," +
-                (return_type != null ? (return_type.constructor === String ? "'" + return_type + "'" : return_type) : 0) +
-                ");\n";
-                    if (properties) {
-                code +=
-                    "this.properties = " + JSON.stringify(properties) + ";\n";
+                    if (return_type !== null) {
+                        this.addOutput("out", return_type);
                     }
-            var classobj = Function(code);
-            classobj.title = name.split("/").pop();
-            classobj.desc = "Generated from " + func.name;
-            classobj.prototype.onExecute = function onExecute() {
-                for (var i = 0; i < params.length; ++i) {
+                    if (properties) {
+                        this.properties = properties;
+                    }
+                }
+                onExecute() {
+                    for (let i = 0; i < params.length; ++i) {
                         params[i] = this.getInputData(i);
                     }
-                var r = func.apply(this, params);
+                    const r = func.apply(this, params);
                     this.setOutputData(0, r);
+                }
             };
-            this.registerNodeType(name, classobj);
-            return classobj;
         },
 
         /**
