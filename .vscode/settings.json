@@ -1,0 +1,40 @@
+{
+    // enable foratting on save and auto save when editor focus changes
+    "editor.formatOnSave": true,
+    "files.autoSave": "onFocusChange",
+    // set tab size to 4 and disable auto tab size detection
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    // set formatter to prettier
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    // auto organize imports on save
+    "editor.codeActionsOnSave": { "source.organizeImports": "always" },
+    // explicitly set each language's default formatter to override user settings
+    "[javascript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[vue]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[css]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[scss]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[less]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[json]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[jsonc]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[graphql]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[markdown]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    "[yaml]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+    // prettier formatting settings
+    "prettier.arrowParens": "always",
+    "prettier.embeddedLanguageFormatting": "off",
+    "prettier.printWidth": 100,
+    "prettier.singleQuote": false,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "none",
+    // disable built in github copilot features
+    "chat.disableAIFeatures": true
+}

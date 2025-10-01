@@ -6,7 +6,7 @@ temp/*
 coverage/
 
 # Editors
-/.vscode/*
-!/.vscode/extensions.json
+# /.vscode/*
+# !/.vscode/extensions.json
 *.bak
 .project

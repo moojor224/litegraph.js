@@ -4,13 +4,7 @@
 
 export type Vector2 = [number, number];
 export type Vector4 = [number, number, number, number];
-export type widgetTypes =
-    | "number"
-    | "slider"
-    | "combo"
-    | "text"
-    | "toggle"
-    | "button";
+export type widgetTypes = "number" | "slider" | "combo" | "text" | "toggle" | "button";
 export type SlotShape =
     | typeof LiteGraph.BOX_SHAPE
     | typeof LiteGraph.CIRCLE_SHAPE
@@ -74,23 +68,17 @@ export interface IWidget<TValue = any, TOptions = any> {
      * Called by `LGraphCanvas.processNodeWidgets`
      * https://github.com/jagenjo/litegraph.js/issues/76
      */
-    mouse?(
-        event: MouseEvent,
-        pos: Vector2,
-        node: LGraphNode
-    ): boolean;
+    mouse?(event: MouseEvent, pos: Vector2, node: LGraphNode): boolean;
     /** Called by `LGraphNode.computeSize` */
     computeSize?(width: number): [number, number];
 }
 export interface IButtonWidget extends IWidget<null, {}> {
     type: "button";
 }
-export interface IToggleWidget
-    extends IWidget<boolean, { on?: string; off?: string }> {
+export interface IToggleWidget extends IWidget<boolean, { on?: string; off?: string }> {
     type: "toggle";
 }
-export interface ISliderWidget
-    extends IWidget<number, { max: number; min: number }> {
+export interface ISliderWidget extends IWidget<number, { max: number; min: number }> {
     type: "slider";
 }
 export interface INumberWidget extends IWidget<number, { precision: number }> {
@@ -100,9 +88,7 @@ export interface IComboWidget
     extends IWidget<
         string[],
         {
-            values:
-                | string[]
-                | ((widget: IComboWidget, node: LGraphNode) => string[]);
+            values: string[] | ((widget: IComboWidget, node: LGraphNode) => string[]);
         }
     > {
     type: "combo";
@@ -271,11 +257,7 @@ export const LiteGraph: {
      * @param name a name to distinguish from other nodes
      * @param options to set options
      */
-    createNode<T extends LGraphNode>(
-        type: string,
-        title: string,
-        options: object
-    ): T;
+    createNode<T extends LGraphNode>(type: string, title: string, options: object): T;
 
     /**
      * Returns a registered node type with a given name
@@ -290,17 +272,14 @@ export const LiteGraph: {
      * @param {String} filter only nodes with ctor.filter equal can be shown
      * @return {Array} array with all the node classes
      */
-    getNodeTypesInCategory(
-        category: string,
-        filter: string
-    ): LGraphNodeConstructor[];
+    getNodeTypesInCategory(category: string, filter: string): LGraphNodeConstructor[];
 
     /**
      * Returns a list with all the node type categories
      * @method getNodeTypesCategories
      * @param {String} filter only nodes with ctor.filter equal can be shown
      * @return {Array} array with all the names of the categories
-     */                           
+     */
     getNodeTypesCategories(filter: string): string[];
 
     /** debug purposes: reloads all the js scripts that matches a wildcard */
@@ -418,7 +397,7 @@ export declare class LGraph {
     /**
      * Positions every node in a more readable manner
      */
-    arrange(margin?: number,layout?: string): void;
+    arrange(margin?: number, layout?: string): void;
     /**
      * Returns the amount of time the graph has been running in milliseconds
      * @return number of milliseconds the graph has been running
@@ -464,9 +443,7 @@ export declare class LGraph {
      * @param classObject the class itself (not an string)
      * @return a list with all the nodes of this type
      */
-    findNodesByClass<T extends LGraphNode>(
-        classObject: LGraphNodeConstructor<T>
-    ): T[];
+    findNodesByClass<T extends LGraphNode>(classObject: LGraphNodeConstructor<T>): T[];
     /**
      * Returns a list of nodes that matches a type
      * @param type the name of the node type
@@ -536,7 +513,7 @@ export declare class LGraph {
     triggerInput(name: string, value: any): void;
     setCallback(name: string, func: (...args: any[]) => any): void;
     beforeChange(info?: LGraphNode): void;
-    afterChange(info?: LGraphNode): void;                       
+    afterChange(info?: LGraphNode): void;
     connectionChange(node: LGraphNode): void;
     /** returns if the graph is in live mode */
     isLive(): boolean;
@@ -621,7 +598,7 @@ export declare class LGraphNode {
     properties_info: any[];
 
     flags: Partial<{
-        collapsed: boolean
+        collapsed: boolean;
     }>;
 
     color: string;
@@ -696,9 +673,7 @@ export declare class LGraphNode {
     /** tells you if there is a connection in one input slot */
     isInputConnected(slot: number): boolean;
     /** tells you info about an input connection (which node, type, etc) */
-    getInputInfo(
-        slot: number
-    ): { link: number; name: string; type: string | 0 } | null;
+    getInputInfo(slot: number): { link: number; name: string; type: string | 0 } | null;
     /** Returns the link info in the connection of an input slot */
     getInputLink(slot: number): LLink | null;
     /** returns the node connected in the input slot */
@@ -708,9 +683,7 @@ export declare class LGraphNode {
     /** tells you the last output data that went in that slot */
     getOutputData<T = any>(slot: number): T | null;
     /** tells you info about an output connection (which node, type, etc) */
-    getOutputInfo(
-        slot: number
-    ): { name: string; type: string; links: number[] } | null;
+    getOutputInfo(slot: number): { name: string; type: string; links: number[] } | null;
     /** tells you if there is a connection in one output slot */
     isOutputConnected(slot: number): boolean;
     /** tells you if there is any connection in the output slots */
@@ -741,12 +714,7 @@ export declare class LGraphNode {
      * @param type string defining the output type ("vec3","number",...)
      * @param extra_info this can be used to have special properties of the property (like values, etc)
      */
-    addProperty<T = any>(
-        name: string,
-        default_value: any,
-        type: string,
-        extra_info?: object
-    ): T;
+    addProperty<T = any>(name: string, default_value: any, type: string, extra_info?: object): T;
     /**
      * add a new output slot to use in this node
      * @param name
@@ -762,9 +730,7 @@ export declare class LGraphNode {
      * add a new output slot to use in this node
      * @param array of triplets like [[name,type,extra_info],[...]]
      */
-    addOutputs(
-        array: [string, string | -1, Partial<INodeOutputSlot> | undefined][]
-    ): void;
+    addOutputs(array: [string, string | -1, Partial<INodeOutputSlot> | undefined][]): void;
     /** remove an existing output slot */
     removeOutput(slot: number): void;
     /**
@@ -773,18 +739,12 @@ export declare class LGraphNode {
      * @param type string defining the input type ("vec3","number",...), it its a generic one use 0
      * @param extra_info this can be used to have special properties of an input (label, color, position, etc)
      */
-    addInput(
-        name: string,
-        type: string | -1,
-        extra_info?: Partial<INodeInputSlot>
-    ): INodeInputSlot;
+    addInput(name: string, type: string | -1, extra_info?: Partial<INodeInputSlot>): INodeInputSlot;
     /**
      * add several new input slots in this node
      * @param array of triplets like [[name,type,extra_info],[...]]
      */
-    addInputs(
-        array: [string, string | -1, Partial<INodeInputSlot> | undefined][]
-    ): void;
+    addInputs(array: [string, string | -1, Partial<INodeInputSlot> | undefined][]): void;
     /** remove an existing input slot */
     removeInput(slot: number): void;
     /**
@@ -833,12 +793,7 @@ export declare class LGraphNode {
      */
     getBounding(out?: Vector4, compute_outer?: boolean): Vector4;
     /** checks if a point is inside the shape of a node */
-    isPointInside(
-        x: number,
-        y: number,
-        margin?: number,
-        skipTitle?: boolean
-    ): boolean;
+    isPointInside(x: number, y: number, margin?: number, skipTitle?: boolean): boolean;
     /** checks if a point is inside a node slot, and returns info about which slot */
     getSlotInPosition(
         x: number,
@@ -893,11 +848,7 @@ export declare class LGraphNode {
      * @param out a place to store the output, to free garbage
      * @return the position
      **/
-    getConnectionPos(
-        is_input: boolean,
-        slot: number | string,
-        out?: Vector2
-    ): Vector2;
+    getConnectionPos(is_input: boolean, slot: number | string, out?: Vector2): Vector2;
     /** Force align to grid */
     alignToGrid(): void;
     /** Console output */
@@ -914,41 +865,15 @@ export declare class LGraphNode {
     localToScreen(x: number, y: number, graphCanvas: LGraphCanvas): Vector2;
 
     // https://github.com/jagenjo/litegraph.js/blob/master/guides/README.md#custom-node-appearance
-    onDrawBackground?(
-        ctx: CanvasRenderingContext2D,
-        canvas: HTMLCanvasElement
-    ): void;
-    onDrawForeground?(
-        ctx: CanvasRenderingContext2D,
-        canvas: HTMLCanvasElement
-    ): void;
+    onDrawBackground?(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void;
+    onDrawForeground?(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void;
 
     // https://github.com/jagenjo/litegraph.js/blob/master/guides/README.md#custom-node-behaviour
-    onMouseDown?(
-        event: MouseEvent,
-        pos: Vector2,
-        graphCanvas: LGraphCanvas
-    ): void;
-    onMouseMove?(
-        event: MouseEvent,
-        pos: Vector2,
-        graphCanvas: LGraphCanvas
-    ): void;
-    onMouseUp?(
-        event: MouseEvent,
-        pos: Vector2,
-        graphCanvas: LGraphCanvas
-    ): void;
-    onMouseEnter?(
-        event: MouseEvent,
-        pos: Vector2,
-        graphCanvas: LGraphCanvas
-    ): void;
-    onMouseLeave?(
-        event: MouseEvent,
-        pos: Vector2,
-        graphCanvas: LGraphCanvas
-    ): void;
+    onMouseDown?(event: MouseEvent, pos: Vector2, graphCanvas: LGraphCanvas): void;
+    onMouseMove?(event: MouseEvent, pos: Vector2, graphCanvas: LGraphCanvas): void;
+    onMouseUp?(event: MouseEvent, pos: Vector2, graphCanvas: LGraphCanvas): void;
+    onMouseEnter?(event: MouseEvent, pos: Vector2, graphCanvas: LGraphCanvas): void;
+    onMouseLeave?(event: MouseEvent, pos: Vector2, graphCanvas: LGraphCanvas): void;
     onKey?(event: KeyboardEvent, pos: Vector2, graphCanvas: LGraphCanvas): void;
 
     /** Called by `LGraphCanvas.selectNodes` */
@@ -1011,18 +936,16 @@ export declare class LGraphNode {
      * @param inputIndex
      * @return selected input slot index, can differ from parameter value
      */
-    onBeforeConnectInput?(
-        inputIndex: number
-    ): number;
-    
+    onBeforeConnectInput?(inputIndex: number): number;
+
     /** a connection changed (new one or removed) (LiteGraph.INPUT or LiteGraph.OUTPUT, slot, true if connected, link_info, input_info or output_info ) */
     onConnectionsChange(
         type: number,
         slotIndex: number,
         isConnected: boolean,
         link: LLink,
-        ioSlot: (INodeOutputSlot | INodeInputSlot)
-    ): void;                           
+        ioSlot: INodeOutputSlot | INodeInputSlot
+    ): void;
 
     /**
      * if returns false, will abort the `LGraphNode.setProperty`
@@ -1111,13 +1034,7 @@ export declare class LGraphCanvas {
 
     static onMenuCollapseAll(): void;
     static onMenuNodeEdit(): void;
-    static onShowPropertyEditor(
-        item: any,
-        options: any,
-        e: any,
-        menu: any,
-        node: any
-    ): void;
+    static onShowPropertyEditor(item: any, options: any, e: any, menu: any, node: any): void;
     /** Create menu for `Add Group` */
     static onGroupAdd: ContextMenuEventListener;
     /** Create menu for `Add Node` */
@@ -1144,7 +1061,7 @@ export declare class LGraphCanvas {
     );
 
     static active_canvas: HTMLCanvasElement;
-                           
+
     allow_dragcanvas: boolean;
     allow_dragnodes: boolean;
     /** allow to control widgets, buttons, collapse, etc */
@@ -1212,13 +1129,9 @@ export declare class LGraphCanvas {
     node_title_color: string;
     node_widget: [LGraphNode, IWidget] | null;
     /** Called by `LGraphCanvas.drawBackCanvas` */
-    onDrawBackground:
-        | ((ctx: CanvasRenderingContext2D, visibleArea: Vector4) => void)
-        | null;
+    onDrawBackground: ((ctx: CanvasRenderingContext2D, visibleArea: Vector4) => void) | null;
     /** Called by `LGraphCanvas.drawFrontCanvas` */
-    onDrawForeground:
-        | ((ctx: CanvasRenderingContext2D, visibleArea: Vector4) => void)
-        | null;
+    onDrawForeground: ((ctx: CanvasRenderingContext2D, visibleArea: Vector4) => void) | null;
     onDrawOverlay: ((ctx: CanvasRenderingContext2D) => void) | null;
     /** Called by `LGraphCanvas.processMouseDown` */
     onMouse: ((event: MouseEvent) => boolean) | null;
@@ -1237,13 +1150,7 @@ export declare class LGraphCanvas {
     /** Called by `LGraphCanvas.selectNodes` */
     onSelectionChange: ((nodes: Record<number, LGraphNode>) => void) | null;
     /** Called by `LGraphCanvas.showSearchBox` */
-    onSearchBox:
-        | ((
-              helper: Element,
-              value: string,
-              graphCanvas: LGraphCanvas
-          ) => string[])
-        | null;
+    onSearchBox: ((helper: Element, value: string, graphCanvas: LGraphCanvas) => string[]) | null;
     onSearchBoxSelection:
         | ((name: string, event: MouseEvent, graphCanvas: LGraphCanvas) => void)
         | null;
@@ -1317,12 +1224,7 @@ export declare class LGraphCanvas {
     /** returns true if a position (in graph space) is on top of a node little corner box */
     isOverNodeBox(node: LGraphNode, canvasX: number, canvasY: number): boolean;
     /** returns true if a position (in graph space) is on top of a node input slot */
-    isOverNodeInput(
-        node: LGraphNode,
-        canvasX: number,
-        canvasY: number,
-        slotPos: Vector2
-    ): boolean;
+    isOverNodeInput(node: LGraphNode, canvasX: number, canvasY: number, slotPos: Vector2): boolean;
 
     /** process a key event */
     processKey(e: KeyboardEvent): boolean | undefined;
@@ -1367,7 +1269,12 @@ export declare class LGraphCanvas {
     /** draws the given node inside the canvas */
     drawNode(node: LGraphNode, ctx: CanvasRenderingContext2D): void;
     /** draws graphic for node's slot */
-    drawSlotGraphic(ctx: CanvasRenderingContext2D, pos: number[], shape: SlotShape, horizontal: boolean): void;
+    drawSlotGraphic(
+        ctx: CanvasRenderingContext2D,
+        pos: number[],
+        shape: SlotShape,
+        horizontal: boolean
+    ): void;
     /** draws the shape of the given node in the canvas */
     drawNodeShape(
         node: LGraphNode,
@@ -1421,12 +1328,7 @@ export declare class LGraphCanvas {
         activeWidget: object
     ): void;
     /** process an event on widgets */
-    processNodeWidgets(
-        node: LGraphNode,
-        pos: Vector2,
-        event: Event,
-        activeWidget: object
-    ): void;
+    processNodeWidgets(node: LGraphNode, pos: Vector2, event: Event, activeWidget: object): void;
     /** draws every group area in the background */
     drawGroups(canvas: any, ctx: CanvasRenderingContext2D): void;
     adjustNodesSize(): void;
@@ -1441,18 +1343,10 @@ export declare class LGraphCanvas {
     touchHandler(event: TouchEvent): void;
 
     showLinkMenu(link: LLink, e: any): false;
-    prompt(
-        title: string,
-        value: any,
-        callback: Function,
-        event: any
-    ): HTMLDivElement;
+    prompt(title: string, value: any, callback: Function, event: any): HTMLDivElement;
     showSearchBox(event?: MouseEvent): void;
     showEditPropertyValue(node: LGraphNode, property: any, options: any): void;
-    createDialog(
-        html: string,
-        options?: { position?: Vector2; event?: MouseEvent }
-    ): void;
+    createDialog(html: string, options?: { position?: Vector2; event?: MouseEvent }): void;
 
     convertOffsetToCanvas: DragAndScale["convertOffsetToCanvas"];
     convertCanvasToOffset: DragAndScale["convertCanvasToOffset"];
@@ -1473,12 +1367,7 @@ export declare class LGraphCanvas {
 }
 
 declare class ContextMenu {
-    static trigger(
-        element: HTMLElement,
-        event_name: string,
-        params: any,
-        origin: any
-    ): void;
+    static trigger(element: HTMLElement, event_name: string, params: any, origin: any): void;
     static isCursorOverElement(event: MouseEvent, element: HTMLElement): void;
     static closeAllContextMenus(window: Window): void;
     constructor(values: ContextMenuItem[], options?: IContextMenuOptions, window?: Window);
@@ -1486,11 +1375,7 @@ declare class ContextMenu {
     parentMenu?: ContextMenu;
     lock: boolean;
     current_submenu?: ContextMenu;
-    addItem(
-        name: string,
-        value: ContextMenuItem,
-        options?: IContextMenuOptions
-    ): void;
+    addItem(name: string, value: ContextMenuItem, options?: IContextMenuOptions): void;
     close(e?: MouseEvent, ignore_parent_menu?: boolean): void;
     getTopMenu(): void;
     getFirstEvent(): void;
