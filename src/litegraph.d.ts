@@ -15,7 +15,7 @@ export type SlotShape =
 /** https://github.com/jagenjo/litegraph.js/tree/master/guides#node-slots */
 export interface INodeSlot {
     name: string;
-    type: string | -1;
+    type: string | 0;
     label?: string;
     dir?:
         | typeof LiteGraph.UP
@@ -723,14 +723,14 @@ export declare class LGraphNode {
      */
     addOutput(
         name: string,
-        type: string | -1,
+        type: string | 0,
         extra_info?: Partial<INodeOutputSlot>
     ): INodeOutputSlot;
     /**
      * add a new output slot to use in this node
      * @param array of triplets like [[name,type,extra_info],[...]]
      */
-    addOutputs(array: [string, string | -1, Partial<INodeOutputSlot> | undefined][]): void;
+    addOutputs(array: [string, string | 0, Partial<INodeOutputSlot> | undefined][]): void;
     /** remove an existing output slot */
     removeOutput(slot: number): void;
     /**
@@ -739,12 +739,12 @@ export declare class LGraphNode {
      * @param type string defining the input type ("vec3","number",...), it its a generic one use 0
      * @param extra_info this can be used to have special properties of an input (label, color, position, etc)
      */
-    addInput(name: string, type: string | -1, extra_info?: Partial<INodeInputSlot>): INodeInputSlot;
+    addInput(name: string, type: string | 0, extra_info?: Partial<INodeInputSlot>): INodeInputSlot;
     /**
      * add several new input slots in this node
      * @param array of triplets like [[name,type,extra_info],[...]]
      */
-    addInputs(array: [string, string | -1, Partial<INodeInputSlot> | undefined][]): void;
+    addInputs(array: [string, string | 0, Partial<INodeInputSlot> | undefined][]): void;
     /** remove an existing input slot */
     removeInput(slot: number): void;
     /**
