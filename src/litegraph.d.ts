@@ -436,6 +436,11 @@ export declare class LGraph {
     onNodeAdded(node: LGraphNode): void;
     /** Removes a node from the graph */
     remove(node: LGraphNode): void;
+    /**
+     * Called when a new node is removed
+     * @param node the instance of the node
+     */
+    onNodeRemoved(node: LGraphNode): void;
     /** Returns a node by its id. */
     getNodeById(id: number): LGraphNode | undefined;
     /**
