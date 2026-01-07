@@ -1458,6 +1458,11 @@
                 return;
             }
 
+            //callback
+            if (node.onRemoved) {
+                node.onRemoved();
+            }
+
             if (this._nodes_by_id[node.id] == null) {
                 return;
             } //not found
@@ -1489,11 +1494,6 @@
             }
 
             //node.id = -1; //why?
-            //callback
-            if (node.onRemoved) {
-                node.onRemoved();
-            }
-
             node.graph = null;
             this._version++;
 
@@ -5121,6 +5121,7 @@
             if (graph) {
                 graph.attachCanvas(this);
             }
+            this.graph = graph;
 
             this.setCanvas(canvas, options.skip_events);
             this.clear();
@@ -7860,6 +7861,9 @@
                             target_node.id
                         ]);
                     }
+                }
+                if (this.graph) {
+                    this.graph.remove(cloned);
                 }
             }
             localStorage.setItem("litegrapheditor_clipboard", JSON.stringify(clipboard_info));
