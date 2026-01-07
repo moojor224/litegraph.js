@@ -437,7 +437,7 @@ export declare class LGraph {
     /** Removes a node from the graph */
     remove(node: LGraphNode): void;
     /**
-     * Called when a new node is removed
+     * Called when a node is removed
      * @param node the instance of the node
      */
     onNodeRemoved(node: LGraphNode): void;
